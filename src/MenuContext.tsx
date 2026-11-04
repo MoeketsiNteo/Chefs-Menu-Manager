@@ -1,3 +1,4 @@
+
 import React, {
   createContext,
   useContext,
@@ -18,6 +19,8 @@ export type Dish = {
 type MenuContextType = {
   dishes: Dish[];
   addDish: (dish: Dish) => void;
+  updateDish: (id: string, updatedDish: Dish) => void;
+  deleteDish: (id: string) => void;
 };
 
 //Create menu context
@@ -42,11 +45,29 @@ export function MenuProvider({
     ]);
   };
 
+  //Update an existing menu item
+  const updateDish = (id: string, updatedDish: Dish) => {
+    setDishes((currentDishes) =>
+      currentDishes.map((dish) =>
+        dish.id === id ? updatedDish : dish
+      )
+    );
+  };
+
+  //Delete a menu item
+  const deleteDish = (id: string) => {
+    setDishes((currentDishes) =>
+      currentDishes.filter((dish) => dish.id !== id)
+    );
+  };
+
   return (
     <MenuContext.Provider
       value={{
         dishes,
         addDish,
+        updateDish,
+        deleteDish,
       }}
     >
       {children}

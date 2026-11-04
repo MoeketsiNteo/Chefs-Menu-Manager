@@ -1,7 +1,9 @@
 import React from 'react';
 import {
+  Alert,
   FlatList,
   Image,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,7 +19,36 @@ export default function RestaurantMenuScreen() {
   const router = useRouter();
 
   //Get menu items from the menu context
-  const { dishes } = useMenu();
+  const { dishes, deleteDish } = useMenu();
+
+//Delete menu item with confirmation
+const confirmDelete = (id: string, name: string) => {
+  if (Platform.OS === 'web') {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${name}?`
+    );
+
+    if (confirmed) {
+      deleteDish(id);
+    }
+  } else {
+    Alert.alert(
+      'Delete Menu Item',
+      `Are you sure you want to delete ${name}?`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => deleteDish(id),
+        },
+      ]
+    );
+  }
+};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -92,6 +123,34 @@ export default function RestaurantMenuScreen() {
                 R{item.price}
               </Text>
 
+              {/*Edit and delete buttons*/}
+<View style={styles.actionButtons}>
+  <TouchableOpacity
+    style={styles.editButton}
+    onPress={() =>
+      router.push({
+        pathname: '/add-menu',
+        params: { id: item.id },
+      })
+    }
+    activeOpacity={0.8}
+  >
+    <Text style={styles.editButtonText}>
+      EDIT
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.deleteButton}
+    onPress={() => confirmDelete(item.id, item.name)}
+    activeOpacity={0.8}
+  >
+    <Text style={styles.deleteButtonText}>
+      DELETE
+    </Text>
+  </TouchableOpacity>
+</View>
+
             </View>
           </View>
         )}
@@ -113,7 +172,7 @@ export default function RestaurantMenuScreen() {
         ListFooterComponent={
           <TouchableOpacity
             style={styles.addButton}
-            onPress={() => router.push('add-menu')}
+            onPress={() => router.push('/add-menu')}
             activeOpacity={0.8}
           >
             <Text style={styles.addButtonText}>
@@ -255,6 +314,44 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginTop: 'auto',
   },
+
+  //Edit and delete button container
+actionButtons: {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  marginTop: 10,
+  gap: 8,
+},
+
+//Edit button
+editButton: {
+  backgroundColor: '#3D8B5F',
+  paddingVertical: 8,
+  paddingHorizontal: 14,
+  borderRadius: 7,
+},
+
+//Edit button text
+editButtonText: {
+  color: '#FFFFFF',
+  fontSize: 12,
+  fontWeight: '800',
+},
+
+//Delete button
+deleteButton: {
+  backgroundColor: '#D9534F',
+  paddingVertical: 8,
+  paddingHorizontal: 14,
+  borderRadius: 7,
+},
+
+//Delete button text
+deleteButtonText: {
+  color: '#FFFFFF',
+  fontSize: 12,
+  fontWeight: '800',
+},
 
   //Empty menu container
   emptyContainer: {

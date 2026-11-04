@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -11,17 +12,45 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
 
 import { useMenu } from '../MenuContext';
 
 export default function AddMenuScreen() {
-  //Navigation
-  const router = useRouter();
+    //Navigation
+    const router = useRouter();
+    const { id } = useLocalSearchParams<{ id?: string }>();
 
-  //Access menu context
-  const { addDish } = useMenu();
+    //Access menu context
+    const { dishes, addDish, updateDish } = useMenu();
+
+    //Find the menu item being edited
+    const editingDish = dishes.find((dish) => dish.id === id);
+    const isEditing = Boolean(id);
+    
+
+    //Check whether the menu item exists
+    if (isEditing && !editingDish) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.keyboardContainer}>
+            <Text style={styles.title}>
+              Menu item not found.
+            </Text>
+
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => router.replace('/')}
+            >
+              <Text style={styles.cancelButtonText}>
+                BACK TO MENU
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      );
+    }
 
   //Form fields
   const [dishName, setDishName] = useState('');
@@ -29,6 +58,17 @@ export default function AddMenuScreen() {
   const [course, setCourse] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState<string | undefined>(undefined);
+
+  //Load existing menu item details when editing
+  useEffect(() => {
+    if (editingDish) {
+      setDishName(editingDish.name);
+      setDescription(editingDish.description);
+      setCourse(editingDish.course);
+      setPrice(editingDish.price);
+      setImage(editingDish.image);
+    }
+  }, [editingDish]);
 
   //Validation messages
   const [dishNameError, setDishNameError] = useState('');
@@ -104,10 +144,10 @@ export default function AddMenuScreen() {
     if (hasError) {
       return;
     }
-
-    //Create new menu item
-    const newDish = {
-      id: Date.now().toString(),
+    
+    //Create menu item
+    const savedDish = {
+      id: editingDish ? editingDish.id : Date.now().toString(),
       name: dishName.trim(),
       description: description.trim(),
       course,
@@ -115,11 +155,14 @@ export default function AddMenuScreen() {
       image,
     };
 
-    //Add menu item
-    addDish(newDish);
-
-    //Display confirmation message
-    setSuccessMessage('Menu item added successfully!');
+    //Update existing item or add a new item
+    if (editingDish) {
+      updateDish(editingDish.id, savedDish);
+      setSuccessMessage('Menu item updated successfully!');
+    } else {
+      addDish(savedDish);
+      setSuccessMessage('Menu item added successfully!');
+    }
 
     //Clear form fields
     setDishName('');
@@ -145,11 +188,15 @@ export default function AddMenuScreen() {
         style={styles.keyboardContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <View style={styles.content}>
+        <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+>
 
           {/*Page heading*/}
           <Text style={styles.title}>
-            ADD MENU ITEMS
+            {isEditing ? 'EDIT MENU ITEM' : 'ADD MENU ITEMS'}
           </Text>
 
           {/*Success message*/}
@@ -334,7 +381,7 @@ export default function AddMenuScreen() {
             activeOpacity={0.8}
           >
             <Text style={styles.saveButtonText}>
-              SAVE MENU
+              {isEditing ? 'UPDATE MENU' : 'SAVE MENU'}
             </Text>
           </TouchableOpacity>
 
@@ -349,7 +396,7 @@ export default function AddMenuScreen() {
             </Text>
           </TouchableOpacity>
 
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
