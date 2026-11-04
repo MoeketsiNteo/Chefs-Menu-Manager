@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   FlatList,
   Image,
   Platform,
   StyleSheet,
+  TextInput,
   Text,
   TouchableOpacity,
   View,
@@ -20,6 +21,22 @@ export default function RestaurantMenuScreen() {
 
   //Get menu items from the menu context
   const { dishes, deleteDish } = useMenu();
+
+  //Search and filter menu items
+  const [searchText, setSearchText] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('All');
+
+  //Filter menu items by name and course
+  const filteredDishes = dishes.filter((dish) => {
+    const matchesName = dish.name
+      .toLowerCase()
+      .includes(searchText.trim().toLowerCase());
+
+    const matchesCourse =
+      selectedCourse === 'All' || dish.course === selectedCourse;
+
+    return matchesName && matchesCourse;
+  });
 
 //Delete menu item with confirmation
 const confirmDelete = (id: string, name: string) => {
@@ -53,12 +70,11 @@ const confirmDelete = (id: string, name: string) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={dishes}
+        data={filteredDishes}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
 
-        //Restaurant menu header
         //Restaurant menu header
         ListHeaderComponent={
           <View>
@@ -72,6 +88,57 @@ const confirmDelete = (id: string, name: string) => {
                 Manage your restaurant menu
               </Text>
             </View>
+
+            {/*Search menu items*/}
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search menu items by name..."
+              value={searchText}
+              onChangeText={setSearchText}
+            />
+
+            {/*Filter menu items by course*/}
+            <View style={styles.filterContainer}>
+              <Text style={styles.filterLabel}>
+                FILTER BY COURSE:
+              </Text>
+
+              <View style={styles.filterButtons}>
+                {['All', 'Starter', 'Main Course', 'Dessert'].map((course) => (
+                  <TouchableOpacity
+                    key={course}
+                    style={[
+                      styles.filterButton,
+                      selectedCourse === course && styles.activeFilterButton,
+                    ]}
+                    onPress={() => setSelectedCourse(course)}
+                  >
+                    <Text
+                      style={[
+                        styles.filterButtonText,
+                        selectedCourse === course && styles.activeFilterButtonText,
+                      ]}
+                    >
+                      {course}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+
+            {/*Clear search and filters*/}
+            <TouchableOpacity
+              style={styles.clearButton}
+              onPress={() => {
+                setSearchText('');
+                setSelectedCourse('All');
+              }}
+            >
+              <Text style={styles.clearButtonText}>
+                CLEAR FILTERS
+              </Text>
+            </TouchableOpacity>
 
             {/*Menu items heading*/}
             {dishes.length > 0 && (
@@ -126,32 +193,32 @@ const confirmDelete = (id: string, name: string) => {
               </Text>
 
               {/*Edit and delete buttons*/}
-<View style={styles.actionButtons}>
-  <TouchableOpacity
-    style={styles.editButton}
-    onPress={() =>
-      router.push({
-        pathname: '/add-menu',
-        params: { id: item.id },
-      })
-    }
-    activeOpacity={0.8}
-  >
-    <Text style={styles.editButtonText}>
-      EDIT
-    </Text>
-  </TouchableOpacity>
+              <View style={styles.actionButtons}>
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/add-menu',
+                      params: { id: item.id },
+                    })
+                  }
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.editButtonText}>
+                    EDIT
+                  </Text>
+                </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.deleteButton}
-    onPress={() => confirmDelete(item.id, item.name)}
-    activeOpacity={0.8}
-  >
-    <Text style={styles.deleteButtonText}>
-      DELETE
-    </Text>
-  </TouchableOpacity>
-</View>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => confirmDelete(item.id, item.name)}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.deleteButtonText}>
+                    DELETE
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
             </View>
           </View>
@@ -161,16 +228,19 @@ const confirmDelete = (id: string, name: string) => {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyTitle}>
-              No menu items yet
+              {dishes.length === 0
+                ? 'No menu items yet'
+                : 'No matching menu items'}
             </Text>
 
             <Text style={styles.emptyText}>
-              Add your first menu item using the button below.
+              {dishes.length === 0
+                ? 'Add your first menu item using the button below.'
+                : 'Try a different search or course filter.'}
             </Text>
           </View>
         }
 
-        //Add menu item button
         //Add menu item button and total count
         ListFooterComponent={
           <View>
@@ -433,5 +503,81 @@ deleteButtonText: {
     color: '#FFFFFF',
     fontSize: 15,
     fontWeight: '800',
+  },
+
+  //Search input field
+  searchInput: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1.5,
+    borderColor: '#3D8B5F',
+    borderRadius: 12,
+    paddingVertical: 15,
+    paddingHorizontal: 16,
+    fontSize: 15,
+    color: '#3E2C23',
+    marginBottom: 20,
+    elevation: 2,
+  },
+
+  //Course filter container
+  filterContainer: {
+    marginBottom: 20,
+  },
+
+  //Filter label
+  filterLabel: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#3E2C23',
+    marginBottom: 10,
+  },
+
+  //Filter buttons container
+  filterButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+
+  //Filter button
+  filterButton: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#3D8B5F',
+    borderRadius: 20,
+    paddingVertical: 9,
+    paddingHorizontal: 15,
+  },
+
+  //Selected filter button
+  activeFilterButton: {
+    backgroundColor: '#3D8B5F',
+  },
+
+  //Filter button text
+  filterButtonText: {
+    color: '#3D8B5F',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+
+  //Selected filter text
+  activeFilterButtonText: {
+    color: '#FFFFFF',
+  },
+
+  //Clear filters button
+  clearButton: {
+    alignSelf: 'flex-start',
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    marginBottom: 15,
+  },
+
+  //Clear filters button text
+  clearButtonText: {
+    color: '#3D8B5F',
+    fontSize: 13,
+    fontWeight: '700',
   },
 });
