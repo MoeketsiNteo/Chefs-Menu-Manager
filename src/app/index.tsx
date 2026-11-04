@@ -59,8 +59,10 @@ const confirmDelete = (id: string, name: string) => {
         showsVerticalScrollIndicator={false}
 
         //Restaurant menu header
+        //Restaurant menu header
         ListHeaderComponent={
           <View>
+            {/*Restaurant heading*/}
             <View style={styles.header}>
               <Text style={styles.title}>
                 RESTAURANT MENU
@@ -169,16 +171,30 @@ const confirmDelete = (id: string, name: string) => {
         }
 
         //Add menu item button
+        //Add menu item button and total count
         ListFooterComponent={
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => router.push('/add-menu')}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.addButtonText}>
-              + ADD NEW MENU ITEM
-            </Text>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => router.push('/add-menu')}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.addButtonText}>
+                + ADD NEW MENU ITEM
+              </Text>
+            </TouchableOpacity>
+
+            {/*Total number of menu items*/}
+            <View style={styles.totalContainer}>
+              <Text style={styles.totalNumber}>
+                {dishes.length}
+              </Text>
+
+              <Text style={styles.totalLabel}>
+                TOTAL MENU ITEMS
+              </Text>
+            </View>
+          </View>
         }
       />
     </SafeAreaView>
@@ -187,6 +203,33 @@ const confirmDelete = (id: string, name: string) => {
 
 //Screen and menu item styles
 const styles = StyleSheet.create({
+
+  //Total menu items container
+totalContainer: {
+  backgroundColor: '#FFFFFF',
+  borderRadius: 12,
+  padding: 16,
+  marginBottom: 24,
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: '#E5DED7',
+},
+
+//Total number of menu items
+totalNumber: {
+  fontSize: 32,
+  fontWeight: '800',
+  color: '#3D8B5F',
+},
+
+//Total menu items label
+totalLabel: {
+  fontSize: 13,
+  fontWeight: '700',
+  color: '#75675F',
+  marginTop: 4,
+},
+
   //Main screen
   container: {
     flex: 1,
