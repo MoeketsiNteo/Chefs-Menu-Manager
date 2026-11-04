@@ -38,6 +38,31 @@ export default function RestaurantMenuScreen() {
     return matchesName && matchesCourse;
   });
 
+  //Calculate menu statistics
+const totalItems = dishes.length;
+
+//Calculate average menu price
+const totalPrice = dishes.reduce(
+  (total, dish) => total + (Number(dish.price) || 0),
+  0
+);
+
+const averagePrice =
+  totalItems > 0 ? totalPrice / totalItems : 0;
+
+//Count items in each course
+const starterCount = dishes.filter(
+  (dish) => dish.course === 'Starter'
+).length;
+
+const mainCourseCount = dishes.filter(
+  (dish) => dish.course === 'Main Course'
+).length;
+
+const dessertCount = dishes.filter(
+  (dish) => dish.course === 'Dessert'
+).length;
+
 //Delete menu item with confirmation
 const confirmDelete = (id: string, name: string) => {
   if (Platform.OS === 'web') {
@@ -224,52 +249,109 @@ const confirmDelete = (id: string, name: string) => {
           </View>
         )}
 
-        //Message when there are no menu items
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyTitle}>
-              {dishes.length === 0
-                ? 'No menu items yet'
-                : 'No matching menu items'}
-            </Text>
-
-            <Text style={styles.emptyText}>
-              {dishes.length === 0
-                ? 'Add your first menu item using the button below.'
-                : 'Try a different search or course filter.'}
-            </Text>
-          </View>
-        }
-
-        //Add menu item button and total count
-        ListFooterComponent={
-          <View>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => router.push('/add-menu')}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.addButtonText}>
-                + ADD NEW MENU ITEM
-              </Text>
-            </TouchableOpacity>
-
-            {/*Total number of menu items*/}
-            <View style={styles.totalContainer}>
-              <Text style={styles.totalNumber}>
-                {dishes.length}
+          //Message when there are no menu items
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyTitle}>
+                {dishes.length === 0
+                  ? 'No menu items yet'
+                  : 'No matching menu items'}
               </Text>
 
-              <Text style={styles.totalLabel}>
-                TOTAL MENU ITEMS
+              <Text style={styles.emptyText}>
+                {dishes.length === 0
+                  ? 'Add your first menu item using the button below.'
+                  : 'Try a different search or course filter.'}
               </Text>
             </View>
-          </View>
-        }
-      />
-    </SafeAreaView>
-  );
-}
+          }
+
+            //Add menu item button and menu statistics
+            ListFooterComponent={
+              <View>
+                {/*Add menu item button*/}
+                <TouchableOpacity
+                  style={styles.addButton}
+                  onPress={() => router.push('/add-menu')}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.addButtonText}>
+                    + ADD NEW MENU ITEM
+                  </Text>
+                </TouchableOpacity>
+                            {/*Menu overview*/}
+              <View style={styles.statisticsOverview}>
+                <Text style={styles.overviewTitle}>
+                  MENU OVERVIEW
+                </Text>
+
+                {/*Starters*/}
+                <View style={styles.courseCard}>
+                  <View style={styles.courseInfo}>
+                    <Text style={styles.courseName}>Starters</Text>
+                    <Text style={styles.courseDescription}>
+                      Items available
+                    </Text>
+                  </View>
+                  <Text style={styles.courseCount}>
+                    {starterCount}
+                  </Text>
+                </View>
+
+                {/*Main courses*/}
+                <View style={styles.courseCard}>
+                  <View style={styles.courseInfo}>
+                    <Text style={styles.courseName}>Main Courses</Text>
+                    <Text style={styles.courseDescription}>
+                      Items available
+                    </Text>
+                  </View>
+                  <Text style={styles.courseCount}>
+                    {mainCourseCount}
+                  </Text>
+                </View>
+
+                {/*Desserts*/}
+                <View style={styles.courseCard}>
+                  <View style={styles.courseInfo}>
+                    <Text style={styles.courseName}>Desserts</Text>
+                    <Text style={styles.courseDescription}>
+                      Items available
+                    </Text>
+                  </View>
+                  <Text style={styles.courseCount}>
+                    {dessertCount}
+                  </Text>
+                </View>
+              </View>
+
+
+                {/*Menu totals*/}
+                <View style={styles.overviewCards}>
+                  <View style={styles.overviewCard}>
+                    <Text style={styles.overviewNumber}>
+                      {totalItems}
+                    </Text>
+                    <Text style={styles.overviewLabel}>
+                      TOTAL DISHES
+                    </Text>
+                  </View>
+
+                  <View style={styles.overviewCard}>
+                    <Text style={styles.overviewNumber}>
+                      R{averagePrice.toFixed(2)}
+                    </Text>
+                    <Text style={styles.overviewLabel}>
+                      AVERAGE PRICE
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            }
+        />
+      </SafeAreaView>
+    );
+  }
 
 //Screen and menu item styles
 const styles = StyleSheet.create({
@@ -580,4 +662,137 @@ deleteButtonText: {
     fontSize: 13,
     fontWeight: '700',
   },
+
+  //Menu statistics container
+statisticsContainer: {
+  backgroundColor: '#FFFFFF',
+  borderRadius: 12,
+  padding: 16,
+  marginBottom: 24,
+  borderWidth: 1,
+  borderColor: '#E5DED7',
+},
+
+//Statistics heading
+statisticsHeading: {
+  fontSize: 15,
+  fontWeight: '800',
+  color: '#3D8B5F',
+  marginBottom: 15,
+},
+
+//Statistics row
+statisticsRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingVertical: 10,
+  borderBottomWidth: 1,
+  borderBottomColor: '#E5DED7',
+},
+
+//Statistics labels
+statisticsLabel: {
+  fontSize: 14,
+  color: '#3E2C23',
+  fontWeight: '600',
+},
+
+//Statistics numbers
+statisticsNumber: {
+  fontSize: 16,
+  fontWeight: '800',
+  color: '#3D8B5F',
+},
+
+//Menu overview container
+statisticsOverview: {
+  backgroundColor: '#FFFFFF',
+  borderRadius: 16,
+  padding: 18,
+  marginTop: 20,
+  marginBottom: 20,
+  borderWidth: 1,
+  borderColor: '#E5DED7',
+},
+
+//Menu overview heading
+overviewTitle: {
+  fontSize: 18,
+  fontWeight: '800',
+  color: '#3E2C23',
+  marginBottom: 16,
+},
+
+//Course statistics card
+courseCard: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#F7F4EF',
+  borderRadius: 12,
+  padding: 14,
+  marginBottom: 10,
+},
+
+//Course information
+courseInfo: {
+  flex: 1,
+},
+
+//Course name
+courseName: {
+  fontSize: 15,
+  fontWeight: '700',
+  color: '#3E2C23',
+},
+
+//Course description
+courseDescription: {
+  fontSize: 12,
+  color: '#8A7D75',
+  marginTop: 3,
+},
+
+//Course item count
+courseCount: {
+  fontSize: 22,
+  fontWeight: '800',
+  color: '#3D8B5F',
+},
+
+//Container for the two overview cards
+overviewCards: {
+  flexDirection: 'row',
+  gap: 12,
+  marginTop: 20,
+  marginBottom: 24,
+},
+
+//Individual overview card
+overviewCard: {
+  flex: 1,
+  backgroundColor: '#FFFFFF',
+  borderRadius: 14,
+  padding: 18,
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: '#E5DED7',
+},
+
+//Overview card number
+overviewNumber: {
+  fontSize: 24,
+  fontWeight: '800',
+  color: '#3D8B5F',
+},
+
+//Overview card label
+overviewLabel: {
+  fontSize: 12,
+  fontWeight: '700',
+  color: '#75675F',
+  marginTop: 8,
+  textAlign: 'center',
+},
+
 });
