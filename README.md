@@ -107,6 +107,58 @@ The application includes:
 - **React Hooks** – Managing component state and behaviour.
 - **Context API** – Sharing menu data across screens.
 
+## Change Log
+
+This section documents the enhancements and code refactoring implemented after Part 2 of the Chef's Menu Manager application.
+
+### 1. Functional Enhancements
+
+The following features were added to improve menu management:
+
+| Enhancement | Description |
+|---|---|
+| Total Menu Item Counter | Added a counter displaying the total number of menu items. |
+| Edit Menu Items | Added the ability to select an existing dish, modify its information and save the changes. |
+| Delete Menu Items | Added the ability to remove menu items, including a confirmation prompt before deletion. |
+| Search Functionality | Added the ability to search for menu items by dish name. |
+| Course Filtering | Added filtering options for Starter, Main Course and Dessert. |
+| Clear Filters | Added a button to reset the search and course filters. |
+| Search Result Counter | Added a dynamic counter showing the number of matching items compared with the total number of menu items. |
+| Menu Statistics | Added an overview displaying the total number of dishes, overall average price, number of dishes per course and average price per course. |
+| Collapsible Menu Overview | Added the ability to show or hide the statistics dashboard. |
+| Clear Form | Added a function to reset all form fields and validation messages. |
+| Improved Price Validation | Added validation to prevent invalid, zero or negative prices. |
+| Improved User Feedback | Added clearer validation, success, update and deletion feedback messages. |
+
+### 2. User Interface and Experience Improvements
+
+The following changes were made to improve usability and consistency:
+
+- Moved the Add New Menu Item button closer to the top of the main screen for easier access.
+- Replaced the course dropdown with selectable course buttons.
+- Added a dynamic search result count.
+- Made the Clear Filters button appear only when a search or course filter is active.
+- Made the Menu Overview collapsible to reduce unnecessary scrolling.
+- Improved the organisation and presentation of menu statistics.
+- Improved the placement and presentation of menu item information and action buttons.
+- Maintained consistent colours, spacing, typography and button styling across the application.
+
+### 3. Code Refactoring and Organisation
+
+The existing code was reviewed and reorganised to improve maintainability, readability and code reuse.
+
+| Refactoring | Description |
+|---|---|
+| Reusable Menu Item Component | Extracted the menu item card interface into `src/components/menu-items.tsx` to avoid repeating the same UI code. |
+| Shared Menu Data Management | Used the Context API in `src/MenuContext.tsx` to manage menu items and make the data accessible across application screens. |
+| Reusable Validation Functions | Created reusable functions to validate required fields and menu item prices. |
+| Centralised Validation Clearing | Created a reusable function to clear validation messages and success feedback. |
+| Improved Screen Organisation | Separated the main menu screen and add/edit form into different files using Expo Router. |
+| Improved Function and Variable Naming | Used meaningful names to make the code easier to understand and maintain. |
+| Reduced Code Duplication | Reused components and functions instead of repeating interface and validation logic. |
+
+These changes improved the application's functionality, organisation and overall user experience while making the code easier to maintain and extend.
+
 ## Project Structure
 
 The application is organised into folders and files to separate screens, reusable components, application data and resources.
