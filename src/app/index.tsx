@@ -186,17 +186,19 @@ const confirmDelete = (id: string, name: string) => {
             </View>
 
             {/*Clear search and filters*/}
-            <TouchableOpacity
-              style={styles.clearButton}
-              onPress={() => {
-                setSearchText('');
-                setSelectedCourse('All');
-              }}
-            >
-              <Text style={styles.clearButtonText}>
-                CLEAR FILTERS
-              </Text>
-            </TouchableOpacity>
+            {(searchText.trim() !== '' || selectedCourse !== 'All') && (
+              <TouchableOpacity
+                style={styles.clearButton}
+                onPress={() => {
+                  setSearchText('');
+                  setSelectedCourse('All');
+                }}
+              >
+                <Text style={styles.clearButtonText}>
+                  CLEAR FILTERS
+                </Text>
+              </TouchableOpacity>
+            )}
 
             {/*Menu items result count*/}
             {dishes.length > 0 && (
