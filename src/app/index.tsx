@@ -198,6 +198,13 @@ const confirmDelete = (id: string, name: string) => {
               </Text>
             </TouchableOpacity>
 
+            {/*Menu items result count*/}
+            {dishes.length > 0 && (
+              <Text style={styles.resultCount}>
+                Showing {filteredDishes.length} of {dishes.length} menu items
+              </Text>
+            )}
+
             {/*Menu items heading*/}
             {dishes.length > 0 && (
               <Text style={styles.sectionTitle}>
@@ -406,6 +413,13 @@ totalLabel: {
     color: '#E58A2B',
     textAlign: 'left',
     marginBottom: 14,
+  },
+
+  //Menu items result count
+  resultCount: {
+    fontSize: 13,
+    color: '#8A7D75',
+    marginBottom: 6,
   },
 
   //Empty menu container
