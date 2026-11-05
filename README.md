@@ -1,16 +1,24 @@
 # Chef's Menu Manager
 
-A mobile application designed to help restaurant owners manage their menus efficiently. Chef's Menu Manager allows users to add, view, edit and delete menu items, organise dishes by course, search and filter the menu, and monitor menu statistics through a simple dashboard.
+**A React Native mobile application for simple and efficient restaurant menu management.**
 
-## Application Preview
+## Background
 
-![Chef's Menu Manager Main Screen](screenshots/01-menu-screen.png)
+Chef's Menu Manager was developed to address a menu management challenge faced by a local restaurant owner, Christoffel.
 
-## Features
+Previously, the restaurant's chef relied on paper records to manage menu information. This made it difficult to update dishes, organise menu items and quickly retrieve information when needed.
+
+The application provides a digital solution that allows the restaurant owner to manage menu items directly from a mobile device. It brings menu information together in one place, making it easier to maintain an organised and up-to-date restaurant menu.
+
+The application was developed progressively, beginning with planning and design, followed by the development of a working application and further enhancements to its functionality and user experience.
+
+## Application Features
 
 ### 1. Menu Management
 
 Manage restaurant menu items from one central screen. Each menu item displays its name, description, course, price and optional image.
+
+![Chef's Menu Manager Main Screen](screenshots/01-menu-screen.png)
 
 Users can view the complete menu and see the total number of menu items.
 
