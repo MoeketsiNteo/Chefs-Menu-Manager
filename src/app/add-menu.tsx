@@ -13,7 +13,6 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Picker } from '@react-native-picker/picker';
 
 import { useMenu } from '../MenuContext';
 
@@ -103,6 +102,22 @@ export default function AddMenuScreen() {
   //Remove selected picture
   const removeImage = () => {
     setImage(undefined);
+  };
+
+  //Clear form fields
+  const clearForm = () => {
+    setDishName('');
+    setDescription('');
+    setCourse('');
+    setPrice('');
+    setImage(undefined);
+
+    //Clear validation messages
+    setDishNameError('');
+    setDescriptionError('');
+    setCourseError('');
+    setPriceError('');
+    setSuccessMessage('');
   };
 
   //Save menu item
@@ -291,40 +306,38 @@ export default function AddMenuScreen() {
             COURSE:
           </Text>
 
-          <View
-            style={[
-              styles.pickerContainer,
-              courseError ? styles.pickerError : null,
-            ]}
-          >
-            <Picker
-              selectedValue={course}
-              onValueChange={(itemValue) => {
-                setCourse(itemValue);
-                setCourseError('');
-              }}
-            >
-              <Picker.Item
-                label="Select course"
-                value=""
-              />
-
-              <Picker.Item
-                label="Starter"
-                value="Starter"
-              />
-
-              <Picker.Item
-                label="Main Course"
-                value="Main Course"
-              />
-
-              <Picker.Item
-                label="Dessert"
-                value="Dessert"
-              />
-            </Picker>
+          <View style={styles.courseButtons}>
+            {['Starter', 'Main Course', 'Dessert'].map((courseOption) => (
+              <TouchableOpacity
+                key={courseOption}
+                style={[
+                  styles.courseButton,
+                  course === courseOption && styles.selectedCourseButton,
+                  courseError ? styles.pickerError : null,
+                ]}
+                onPress={() => {
+                  setCourse(courseOption);
+                  setCourseError('');
+                }}
+                activeOpacity={0.8}
+              >
+                <Text
+                  style={[
+                    styles.courseButtonText,
+                    course === courseOption && styles.selectedCourseButtonText,
+                  ]}
+                >
+                  {courseOption}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
+
+          {courseError ? (
+            <Text style={styles.errorText}>
+              {courseError}
+            </Text>
+          ) : null}
 
           {courseError ? (
             <Text style={styles.errorText}>
@@ -382,6 +395,17 @@ export default function AddMenuScreen() {
           >
             <Text style={styles.saveButtonText}>
               {isEditing ? 'UPDATE MENU' : 'SAVE MENU'}
+            </Text>
+          </TouchableOpacity>
+
+          {/*Clear form button*/}
+          <TouchableOpacity
+            style={styles.clearButton}
+            onPress={clearForm}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.clearButtonText}>
+              CLEAR FORM
             </Text>
           </TouchableOpacity>
 
@@ -472,17 +496,45 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
 
-  //Course picker
-  pickerContainer: {
+  //Course buttons container
+  courseButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 6,
+  },
+
+  //Course selection button
+  courseButton: {
+    flexGrow: 1,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#D8D0C8',
     borderRadius: 10,
-    overflow: 'hidden',
-    marginBottom: 6,
+    paddingVertical: 13,
+    paddingHorizontal: 12,
+    alignItems: 'center',
   },
 
-  //Error picker border
+  //Selected course button
+  selectedCourseButton: {
+    backgroundColor: '#3D8B5F',
+    borderColor: '#3D8B5F',
+  },
+
+  //Course button text
+  courseButtonText: {
+    color: '#3E2C23',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+
+  //Selected course text
+  selectedCourseButtonText: {
+    color: '#FFFFFF',
+  },
+
+  //Course selection error border
   pickerError: {
     borderColor: '#D9534F',
     borderWidth: 1.5,
@@ -601,6 +653,23 @@ const styles = StyleSheet.create({
   //Cancel button text
   cancelButtonText: {
     color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+
+  //Clear form button
+  clearButton: {
+    height: 52,
+    backgroundColor: '#D8D0C8',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+
+  //Clear form button text
+  clearButtonText: {
+    color: '#3E2C23',
     fontSize: 15,
     fontWeight: '800',
   },

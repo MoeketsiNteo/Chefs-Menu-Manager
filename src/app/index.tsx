@@ -63,6 +63,29 @@ const dessertCount = dishes.filter(
   (dish) => dish.course === 'Dessert'
 ).length;
 
+//Calculate average price for a course
+const calculateCourseAverage = (courseName: string) => {
+  const courseDishes = dishes.filter(
+    (dish) => dish.course === courseName
+  );
+
+  if (courseDishes.length === 0) {
+    return 0;
+  }
+
+  const courseTotal = courseDishes.reduce(
+    (total, dish) => total + (Number(dish.price) || 0),
+    0
+  );
+
+  return courseTotal / courseDishes.length;
+};
+
+//Calculate average price for each course
+const starterAverage = calculateCourseAverage('Starter');
+const mainCourseAverage = calculateCourseAverage('Main Course');
+const dessertAverage = calculateCourseAverage('Dessert');
+
 //Delete menu item with confirmation
 const confirmDelete = (id: string, name: string) => {
   if (Platform.OS === 'web') {
@@ -150,7 +173,6 @@ const confirmDelete = (id: string, name: string) => {
                 ))}
               </View>
             </View>
-
 
             {/*Clear search and filters*/}
             <TouchableOpacity
@@ -290,12 +312,17 @@ const confirmDelete = (id: string, name: string) => {
                   <View style={styles.courseInfo}>
                     <Text style={styles.courseName}>Starters</Text>
                     <Text style={styles.courseDescription}>
-                      Items available
+                      {starterCount} dishes
                     </Text>
                   </View>
-                  <Text style={styles.courseCount}>
-                    {starterCount}
-                  </Text>
+                  <View style={styles.coursePriceInfo}>
+                    <Text style={styles.courseAverage}>
+                      R{starterAverage.toFixed(2)}
+                    </Text>
+                    <Text style={styles.courseDescription}>
+                      Average price
+                    </Text>
+                  </View>
                 </View>
 
                 {/*Main courses*/}
@@ -303,12 +330,17 @@ const confirmDelete = (id: string, name: string) => {
                   <View style={styles.courseInfo}>
                     <Text style={styles.courseName}>Main Courses</Text>
                     <Text style={styles.courseDescription}>
-                      Items available
+                      {mainCourseCount} dishes
                     </Text>
                   </View>
-                  <Text style={styles.courseCount}>
-                    {mainCourseCount}
-                  </Text>
+                  <View style={styles.coursePriceInfo}>
+                    <Text style={styles.courseAverage}>
+                      R{mainCourseAverage.toFixed(2)}
+                    </Text>
+                    <Text style={styles.courseDescription}>
+                      Average price
+                    </Text>
+                  </View>
                 </View>
 
                 {/*Desserts*/}
@@ -316,14 +348,18 @@ const confirmDelete = (id: string, name: string) => {
                   <View style={styles.courseInfo}>
                     <Text style={styles.courseName}>Desserts</Text>
                     <Text style={styles.courseDescription}>
-                      Items available
+                      {dessertCount} dishes
                     </Text>
                   </View>
-                  <Text style={styles.courseCount}>
-                    {dessertCount}
-                  </Text>
+                  <View style={styles.coursePriceInfo}>
+                    <Text style={styles.courseAverage}>
+                      R{dessertAverage.toFixed(2)}
+                    </Text>
+                    <Text style={styles.courseDescription}>
+                      Average price
+                    </Text>
+                  </View>
                 </View>
-              </View>
 
 
                 {/*Menu totals*/}
@@ -345,7 +381,8 @@ const confirmDelete = (id: string, name: string) => {
                       AVERAGE PRICE
                     </Text>
                   </View>
-                </View>
+                  </View>
+                  </View>
               </View>
             }
         />
@@ -756,6 +793,18 @@ courseDescription: {
 //Course item count
 courseCount: {
   fontSize: 22,
+  fontWeight: '800',
+  color: '#3D8B5F',
+},
+
+//Course average price container
+coursePriceInfo: {
+  alignItems: 'flex-end',
+},
+
+//Course average price
+courseAverage: {
+  fontSize: 17,
   fontWeight: '800',
   color: '#3D8B5F',
 },
