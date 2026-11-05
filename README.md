@@ -157,18 +157,18 @@ The development of Chef's Menu Manager was supported by official technical docum
 
 ## References
 
-Expo (n.d.) *Create your first app*. Expo Documentation. Available at: https://docs.expo.dev/tutorial/create-your-first-app/ (Accessed: 5 November 2026).
+Expo (n.d.) *Create your first app*. Expo Documentation. Available at: https://docs.expo.dev/tutorial/create-your-first-app/ (Accessed: 30 August 2026).
 
-Expo (n.d.) *ImagePicker*. Expo Documentation. Available at: https://docs.expo.dev/versions/latest/sdk/imagepicker/ (Accessed: 5 November 2026).
+Expo (n.d.) *ImagePicker*. Expo Documentation. Available at: https://docs.expo.dev/versions/latest/sdk/imagepicker/ (Accessed: 5 September 2026).
 
-GeeksforGeeks (2025) *How to Implement Form Validation in React Native?* Available at: https://www.geeksforgeeks.org/mobile-computing/how-to-implement-form-validation-in-react-native/ (Accessed: 5 November 2026).
+GeeksforGeeks (2025) *How to Implement Form Validation in React Native?* Available at: https://www.geeksforgeeks.org/mobile-computing/how-to-implement-form-validation-in-react-native/ (Accessed: 5 Septermber 2026).
 
-GeeksforGeeks (2026) *React Native FlatList Component*. Available at: https://www.geeksforgeeks.org/react-native/react-native-flatlist-component/ (Accessed: 5 November 2026).
+GeeksforGeeks (2026) *React Native FlatList Component*. Available at: https://www.geeksforgeeks.org/react-native/react-native-flatlist-component/ (Accessed: 20 October 2026).
 
-React (n.d.) *useEffect*. React Documentation. Available at: https://react.dev/reference/react/useEffect (Accessed: 5 November 2026).
+React (n.d.) *useEffect*. React Documentation. Available at: https://react.dev/reference/react/useEffect (Accessed: 30 August 2026).
 
-React Native (n.d.) *Introduction*. React Native Documentation. Available at: https://reactnative.dev/docs/getting-started (Accessed: 5 November 2026).
+React Native (n.d.) *Introduction*. React Native Documentation. Available at: https://reactnative.dev/docs/getting-started (Accessed:5 September 2026).
 
-Stack Overflow (2018) *Average with the Reduce Method in JavaScript*. Available at: https://stackoverflow.com/questions/52139703/average-with-the-reduce-method-in-javascript (Accessed: 5 November 2026).
+Stack Overflow (2018) *Average with the Reduce Method in JavaScript*. Available at: https://stackoverflow.com/questions/52139703/average-with-the-reduce-method-in-javascript (Accessed: 3 November 2026).
 
-W3Schools (n.d.) *JavaScript Array filter() Method*. Available at: https://www.w3schools.com/jsref/jsref_filter.asp (Accessed: 5 November 2026).
+W3Schools (n.d.) *JavaScript Array filter() Method*. Available at: https://www.w3schools.com/jsref/jsref_filter.asp (Accessed: 3 November 2026).
