@@ -25,6 +25,8 @@ export default function RestaurantMenuScreen() {
   //Search and filter menu items
   const [searchText, setSearchText] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('All');
+  //Menu overview visibility
+  const [showOverview, setShowOverview] = useState(false);
 
   //Filter menu items by name and course
   const filteredDishes = dishes.filter((dish) => {
@@ -200,58 +202,19 @@ const confirmDelete = (id: string, name: string) => {
               </TouchableOpacity>
             )}
 
-            {/*Menu items result count*/}
-            {dishes.length > 0 && (
-              <Text style={styles.resultCount}>
-                Showing {filteredDishes.length} of {dishes.length} menu items
+            {/*Menu overview toggle*/}
+            <TouchableOpacity
+              style={styles.overviewToggle}
+              onPress={() => setShowOverview(!showOverview)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.overviewToggleText}>
+                {showOverview ? 'HIDE MENU OVERVIEW' : 'SHOW MENU OVERVIEW'}
               </Text>
-            )}
+            </TouchableOpacity>
 
-            {/*Menu items heading*/}
-            {dishes.length > 0 && (
-              <Text style={styles.sectionTitle}>
-                MENU ITEMS
-              </Text>
-            )}
-          </View>
-        }
-
-        //Display each menu item
-        renderItem={({ item }) => (
-          <MenuItems
-            item={item}
-            onEdit={(id) =>
-              router.push({
-                pathname: '/add-menu',
-                params: { id },
-              })
-            }
-            onDelete={confirmDelete}
-          />
-        )}
-
-          //Message when there are no menu items
-          ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyTitle}>
-                {dishes.length === 0
-                  ? 'No menu items yet'
-                  : 'No matching menu items'}
-              </Text>
-
-              <Text style={styles.emptyText}>
-                {dishes.length === 0
-                  ? 'Use the button above to add your first menu item.'
-                  : 'Try a different search or course filter.'}
-              </Text>
-            </View>
-          }
-
-            //Add menu item button and menu statistics
-            ListFooterComponent={
-              <View>
-
-              {/*Menu overview*/}
+            {/*Menu overview*/}
+            {showOverview && (
               <View style={styles.statisticsOverview}>
                 <Text style={styles.overviewTitle}>
                   MENU OVERVIEW
@@ -311,7 +274,6 @@ const confirmDelete = (id: string, name: string) => {
                   </View>
                 </View>
 
-
                 {/*Menu totals*/}
                 <View style={styles.overviewCards}>
                   <View style={styles.overviewCard}>
@@ -331,10 +293,56 @@ const confirmDelete = (id: string, name: string) => {
                       AVERAGE PRICE
                     </Text>
                   </View>
-                  </View>
-                  </View>
+                </View>
               </View>
+            )}
+
+            {/*Menu items result count*/}
+            {dishes.length > 0 && (
+              <Text style={styles.resultCount}>
+                Showing {filteredDishes.length} of {dishes.length} menu items
+              </Text>
+            )}
+
+            {/*Menu items heading*/}
+            {dishes.length > 0 && (
+              <Text style={styles.sectionTitle}>
+                MENU ITEMS
+              </Text>
+            )}
+          </View>
+        }
+
+        //Display each menu item
+        renderItem={({ item }) => (
+          <MenuItems
+            item={item}
+            onEdit={(id) =>
+              router.push({
+                pathname: '/add-menu',
+                params: { id },
+              })
             }
+            onDelete={confirmDelete}
+          />
+        )}
+
+          //Message when there are no menu items
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyTitle}>
+                {dishes.length === 0
+                  ? 'No menu items yet'
+                  : 'No matching menu items'}
+              </Text>
+
+              <Text style={styles.emptyText}>
+                {dishes.length === 0
+                  ? 'Use the button above to add your first menu item.'
+                  : 'Try a different search or course filter.'}
+              </Text>
+            </View>
+          }
         />
       </SafeAreaView>
     );
@@ -591,6 +599,24 @@ statisticsOverview: {
   marginBottom: 20,
   borderWidth: 1,
   borderColor: '#E5DED7',
+},
+
+//Menu overview toggle button
+overviewToggle: {
+  backgroundColor: '#3D8B5F',
+  borderRadius: 10,
+  paddingVertical: 14,
+  paddingHorizontal: 16,
+  alignItems: 'center',
+  marginTop: 10,
+  marginBottom: 16,
+},
+
+//Menu overview toggle text
+overviewToggleText: {
+  color: '#FFFFFF',
+  fontSize: 14,
+  fontWeight: '800',
 },
 
 //Menu overview heading
