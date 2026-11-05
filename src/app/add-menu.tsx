@@ -129,6 +129,21 @@ export default function AddMenuScreen() {
     return value.trim() ? '' : message;
   };
 
+  //Validate menu item price
+  const getPriceError = (value: string) => {
+    const numericPrice = Number(value);
+
+    if (!value.trim()) {
+      return 'Please enter the price.';
+    }
+
+    if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
+      return 'Please enter a valid price greater than zero.';
+    }
+
+    return '';
+  };
+
   //Save menu item
   const saveMenuItem = () => {
     clearValidationMessages(); //Clear previous validation messages
@@ -144,10 +159,8 @@ export default function AddMenuScreen() {
     'Please enter the dish description.'
   );
 
-  const priceErrorMessage = getFieldError(
-    price,
-    'Please enter the price.'
-  );
+  //Esures price cannot be empty, contains a valid number and must be greater than 0
+  const priceErrorMessage = getPriceError(price);
 
   const courseErrorMessage = getFieldError(
     course,
