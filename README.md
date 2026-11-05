@@ -1,169 +1,141 @@
 # Chef's Menu Manager
 
-GitHub Repository: [Chef's Menu Manager](https://github.com/MoeketsiNteo/Chefs-Menu-Manager)
-
 **A React Native mobile application for simple and efficient restaurant menu management.**
+
+**GitHub Repository:** https://github.com/MoeketsiNteo/Chefs-Menu-Manager
 
 ## Background
 
-Chef's Menu Manager was developed to address a menu management challenge faced by a local restaurant owner, Christoffel.
+Chef's Menu Manager was developed to address a menu management challenge experienced by Christoffel, a local restaurant owner. Managing restaurant menu information using paper records made it difficult to organise, update and retrieve menu items efficiently.
 
-Previously, the restaurant's chef relied on paper records to manage menu information. This made it difficult to update dishes, organise menu items and quickly retrieve information when needed.
+The application provides a digital solution that allows restaurant owners to manage their menu items in one place. It was developed using React Native and Expo, with an emphasis on simplicity, functionality and user-friendly design.
 
-The application provides a digital solution that allows the restaurant owner to manage menu items directly from a mobile device. It brings menu information together in one place, making it easier to maintain an organised and up-to-date restaurant menu.
-
-The application was developed progressively, beginning with planning and design, followed by the development of a working application and further enhancements to its functionality and user experience.
-
-## Application Features
-
-### 1. Menu Management
-
-Manage restaurant menu items from one central screen. Each menu item displays its name, description, course, price and optional image.
-
-![Chef's Menu Manager Main Screen](screenshots/01-menu-screen.png)
-
-Users can view the complete menu and see the total number of menu items.
-
-### 2. Add Menu Items
-
-![Add Menu Item Form](screenshots/02-add-menu-item.png)
-
-Add new dishes using a form that captures:
-
-- Dish name
-- Description
-- Course (Starter, Main Course or Dessert)
-- Price
-- Optional dish image
-
-The form includes a Clear Form option to reset entered information before saving.
-
-### 3. Form Validation and Feedback
-
-![Form Validation](screenshots/03-validation.png)
-
-The application validates form entries before saving a menu item. It checks that required fields are completed and that the price is a valid amount greater than zero.
-
-Clear error messages help users identify and correct invalid entries. Success messages provide feedback when an item is saved successfully.
-
-### 4. Search and Filtering
-
-![Search and Filter Menu Items](screenshots/04-search-and-filter.png)
-
-Find menu items quickly using the search and course-filtering features.
-
-- Search for dishes by name.
-- Filter dishes by Starter, Main Course or Dessert.
-- Combine search and course filters.
-- Clear active filters to return to the complete menu.
-- View the number of matching items compared with the total menu items.
-
-### 5. Menu Overview and Statistics
-
-![Menu Statistics](screenshots/05-menu-statistics.png)
-
-The Menu Overview provides a summary of the restaurant's menu.
-
-It displays:
-
-- Total number of menu items.
-- Average price across the entire menu.
-- Number of dishes in each course.
-- Average price for each course.
-
-The overview can be expanded or collapsed to keep the main menu organised and easy to navigate.
-
-### 6. Edit and Delete Menu Items
-
-![Edit and Delete Menu Items](screenshots/06-edit-and-delete.png)
-
-Keep menu information up to date by editing existing dishes or removing items that are no longer needed.
-
-- Edit menu item details.
-- Update saved menu information.
-- Delete menu items with a confirmation prompt.
-- Automatically refresh the menu after changes.
-
-![Edit and Delete Feedback](screenshots/06-validation.png)
-
-Confirmation and feedback messages help users understand when menu items have been updated or deleted successfully.
-
-## User Interface and Experience
-
-Chef's Menu Manager uses a clean and consistent layout to make menu management straightforward.
-
-The application includes:
-- Simple navigation between the main menu and the add/edit form.
-- Clearly labelled buttons and input fields.
-- Consistent colours, spacing and typography.
-- Accessible search and filtering controls.
-- Clear validation, confirmation and success messages.
-- Reusable components to maintain a consistent interface.
-
-## Technologies Used
-
-- **React Native** – Building the mobile application interface.
-- **Expo** – Development and application tooling.
-- **TypeScript** – Type-safe application development.
-- **Expo Router** – Screen navigation.
-- **React Hooks** – Managing component state and behaviour.
-- **Context API** – Sharing menu data across screens.
+The project progressed through three stages: initial planning and interface design in Part 1, development of the working application in Part 2, and further enhancements and code refactoring for the Final PoE.
 
 ## Change Log
 
-This section documents the enhancements and code refactoring implemented after Part 2 of the Chef's Menu Manager application.
+This section documents the functional improvements, user interface enhancements and code refactoring implemented after Part 2.
 
 ### 1. Functional Enhancements
 
-The following features were added to improve menu management:
-
 | Enhancement | Description |
 |---|---|
-| Total Menu Item Counter | Added a counter displaying the total number of menu items. |
-| Edit Menu Items | Added the ability to select an existing dish, modify its information and save the changes. |
-| Delete Menu Items | Added the ability to remove menu items, including a confirmation prompt before deletion. |
-| Search Functionality | Added the ability to search for menu items by dish name. |
+| Total Menu Item Counter | Implemented a counter displaying the total number of menu items in the restaurant's menu. |
+| Edit Menu Items | Added functionality to select an existing menu item, modify its details and save the updated information. |
+| Delete Menu Items | Added the ability to delete menu items, including a confirmation prompt before deletion. |
+| Search Functionality | Implemented a search feature allowing users to find menu items by dish name. |
 | Course Filtering | Added filtering options for Starter, Main Course and Dessert. |
-| Clear Filters | Added a button to reset the search and course filters. |
-| Search Result Counter | Added a dynamic counter showing the number of matching items compared with the total number of menu items. |
+| Combined Search and Filtering | Enabled users to search and filter menu items simultaneously. |
+| Clear Filters | Added functionality to reset active search and course filters. |
+| Search Result Counter | Added a dynamic counter displaying the number of matching items compared with the total number of menu items. |
 | Menu Statistics | Added an overview displaying the total number of dishes, overall average price, number of dishes per course and average price per course. |
-| Collapsible Menu Overview | Added the ability to show or hide the statistics dashboard. |
-| Clear Form | Added a function to reset all form fields and validation messages. |
-| Improved Price Validation | Added validation to prevent invalid, zero or negative prices. |
-| Improved User Feedback | Added clearer validation, success, update and deletion feedback messages. |
+| Collapsible Menu Overview | Added the ability to expand or collapse the menu statistics section. |
+| Clear Form | Added functionality to reset form fields and validation messages. |
+| Improved Price Validation | Implemented validation to prevent empty, non-numeric, zero and negative prices. |
+| Improved User Feedback | Added clearer validation messages and feedback for successful additions, updates and deletions. |
+| Improved Empty States | Added appropriate messages when the menu is empty or when no items match the current search or filters. |
 
 ### 2. User Interface and Experience Improvements
 
-The following changes were made to improve usability and consistency:
-
-- Moved the Add New Menu Item button closer to the top of the main screen for easier access.
+- Moved the Add New Menu Item button towards the top of the main screen for easier access.
 - Replaced the course dropdown with selectable course buttons.
-- Added a dynamic search result count.
-- Made the Clear Filters button appear only when a search or course filter is active.
-- Made the Menu Overview collapsible to reduce unnecessary scrolling.
+- Added a dynamic search result counter.
+- Displayed the Clear Filters button only when a search or course filter is active.
+- Made the Menu Overview collapsible to reduce unnecessary screen space.
 - Improved the organisation and presentation of menu statistics.
-- Improved the placement and presentation of menu item information and action buttons.
-- Maintained consistent colours, spacing, typography and button styling across the application.
+- Improved the layout and presentation of menu item information and action buttons.
+- Maintained consistent colours, spacing, typography and button styling throughout the application.
 
 ### 3. Code Refactoring and Organisation
 
-The existing code was reviewed and reorganised to improve maintainability, readability and code reuse.
-
 | Refactoring | Description |
 |---|---|
-| Reusable Menu Item Component | Extracted the menu item card interface into `src/components/menu-items.tsx` to avoid repeating the same UI code. |
-| Shared Menu Data Management | Used the Context API in `src/MenuContext.tsx` to manage menu items and make the data accessible across application screens. |
+| Reusable Menu Item Component | Extracted the menu item card interface into `src/components/menu-items.tsx` to avoid repeating the same interface code. |
+| Shared Menu Data Management | Used the React Context API in `src/MenuContext.tsx` to manage menu items and make the data accessible across application screens. |
 | Reusable Validation Functions | Created reusable functions to validate required fields and menu item prices. |
 | Centralised Validation Clearing | Created a reusable function to clear validation messages and success feedback. |
 | Improved Screen Organisation | Separated the main menu screen and add/edit form into different files using Expo Router. |
 | Improved Function and Variable Naming | Used meaningful names to make the code easier to understand and maintain. |
 | Reduced Code Duplication | Reused components and functions instead of repeating interface and validation logic. |
 
-These changes improved the application's functionality, organisation and overall user experience while making the code easier to maintain and extend.
+## Application Features
+
+### 1. Menu Management
+
+The main screen displays the restaurant's menu items.
+
+**Figure 1: Main Restaurant Menu Screen**
+
+![Main Menu Screen](screenshots/01-menu-screen.png)
+
+### 2. Add Menu Items
+
+Users can add new dishes by completing the menu item form.
+
+**Figure 2: Add Menu Item Form**
+
+![Add Menu Item](screenshots/02-add-menu-item.png)
+
+### 3. Form Validation and Feedback
+
+The application validates required fields and displays appropriate feedback.
+
+**Figure 3: Form Validation Messages**
+
+![Validation Messages](screenshots/03-validation.png)
+
+### 4. Search and Filtering
+
+Users can search for dishes and filter menu items by course.
+
+**Figure 4: Search and Filtering**
+
+![Search and Filtering](screenshots/04-search-and-filter.png)
+
+### 5. Menu Overview and Statistics
+
+The overview displays menu totals and average prices.
+
+**Figure 5: Menu Overview and Statistics**
+
+![Menu Statistics](screenshots/05-menu-statistics.png)
+
+### 6. Edit and Delete Menu Items
+
+Users can update existing dishes or delete them after confirmation.
+
+**Figure 6: Edit and Delete Menu Items**
+
+![Edit and Delete](screenshots/06-edit-and-delete.png)
+
+**Figure 7: Delete Confirmation**
+
+![Delete Confirmation](screenshots/06-validation.png)
+
+## User Interface and Experience
+
+Chef's Menu Manager was designed with simplicity and ease of use in mind. The interface uses a consistent colour scheme, clear labels, readable text and organised menu item cards.
+
+The application provides straightforward navigation and feedback to help users manage their restaurant menu efficiently. Validation messages guide users when entering information, while confirmation prompts help prevent accidental deletions.
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| React Native | Used to develop the mobile application interface. |
+| Expo | Used as the development platform and to run the application. |
+| TypeScript | Used to define data types and improve code structure. |
+| Expo Router | Used for application navigation between screens. |
+| React Hooks | Used to manage component state and application behaviour. |
+| Context API | Used to share and manage menu data across components. |
+| FlatList | Used to efficiently display menu items. |
+| JavaScript Array Methods | Used for searching, filtering and calculating menu statistics. |
+| Expo ImagePicker | Used to allow users to select images for menu items. |
+| Git and GitHub | Used for version control and project management. |
 
 ## Project Structure
 
-The application is organised into folders and files to separate screens, reusable components, application data and resources.
+The application is organised into the following folders and files:
 
 | Folder / File | Description |
 |---|---|
@@ -177,8 +149,11 @@ The application is organised into folders and files to separate screens, reusabl
 | `src/components/menu-items.tsx` | Displays individual menu item cards and their actions. |
 | `src/MenuContext.tsx` | Manages and shares menu item data across the application. |
 | `package.json` | Contains project dependencies and configuration. |
-| `README.md` | Provides project information, screenshots and setup instructions.
+| `README.md` | Provides project information, screenshots and setup instructions. |
 
+## Acknowledgements and Sources
+
+The development of Chef's Menu Manager was supported by official technical documentation and online learning resources. React Native and Expo documentation were consulted for application development and image selection. React documentation provided guidance on React Hooks, while GeeksforGeeks and W3Schools were used to understand list rendering, form validation and filtering. Stack Overflow provided additional guidance on calculating averages using JavaScript array methods.
 
 ## References
 
