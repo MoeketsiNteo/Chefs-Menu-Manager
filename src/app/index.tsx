@@ -137,6 +137,17 @@ const confirmDelete = (id: string, name: string) => {
               </Text>
             </View>
 
+            {/*Add menu item button*/}
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => router.push('/add-menu')}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.addButtonText}>
+                + ADD NEW MENU ITEM
+              </Text>
+            </TouchableOpacity>
+
             {/*Search menu items*/}
             <TextInput
               style={styles.searchInput}
@@ -221,7 +232,7 @@ const confirmDelete = (id: string, name: string) => {
 
               <Text style={styles.emptyText}>
                 {dishes.length === 0
-                  ? 'Add your first menu item using the button below.'
+                  ? 'Use the button above to add your first menu item.'
                   : 'Try a different search or course filter.'}
               </Text>
             </View>
@@ -230,17 +241,8 @@ const confirmDelete = (id: string, name: string) => {
             //Add menu item button and menu statistics
             ListFooterComponent={
               <View>
-                {/*Add menu item button*/}
-                <TouchableOpacity
-                  style={styles.addButton}
-                  onPress={() => router.push('/add-menu')}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.addButtonText}>
-                    + ADD NEW MENU ITEM
-                  </Text>
-                </TouchableOpacity>
-                            {/*Menu overview*/}
+
+              {/*Menu overview*/}
               <View style={styles.statisticsOverview}>
                 <Text style={styles.overviewTitle}>
                   MENU OVERVIEW
@@ -435,7 +437,8 @@ totalLabel: {
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 5,
+    marginBottom: 20,
   },
 
   //Add button text
