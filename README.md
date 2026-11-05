@@ -4,7 +4,7 @@ A mobile application designed to help restaurant owners manage their menus effic
 
 ## Application Preview
 
-![Chef's Menu Manager Main Screen](scripts/01-menu-screen.png)
+![Chef's Menu Manager Main Screen](screenshots/01-menu-screen.png)
 
 ## Features
 
@@ -16,7 +16,7 @@ Users can view the complete menu and see the total number of menu items.
 
 ### 2. Add Menu Items
 
-![Add Menu Item Form](scripts/02-add-menu-item.png)
+![Add Menu Item Form](screenshots/02-add-menu-item.png)
 
 Add new dishes using a form that captures:
 
@@ -30,7 +30,7 @@ The form includes a Clear Form option to reset entered information before saving
 
 ### 3. Form Validation and Feedback
 
-![Form Validation](scripts/03-validation.png)
+![Form Validation](screenshots/03-validation.png)
 
 The application validates form entries before saving a menu item. It checks that required fields are completed and that the price is a valid amount greater than zero.
 
@@ -38,7 +38,7 @@ Clear error messages help users identify and correct invalid entries. Success me
 
 ### 4. Search and Filtering
 
-![Search and Filter Menu Items](scripts/04-search-and-filter.png)
+![Search and Filter Menu Items](screenshots/04-search-and-filter.png)
 
 Find menu items quickly using the search and course-filtering features.
 
@@ -50,7 +50,7 @@ Find menu items quickly using the search and course-filtering features.
 
 ### 5. Menu Overview and Statistics
 
-![Menu Statistics](scripts/05-menu-statistics.png)
+![Menu Statistics](screenshots/05-menu-statistics.png)
 
 The Menu Overview provides a summary of the restaurant's menu.
 
@@ -65,7 +65,7 @@ The overview can be expanded or collapsed to keep the main menu organised and ea
 
 ### 6. Edit and Delete Menu Items
 
-![Edit and Delete Menu Items](scripts/06-edit-and-delete.png)
+![Edit and Delete Menu Items](screenshots/06-edit-and-delete.png)
 
 Keep menu information up to date by editing existing dishes or removing items that are no longer needed.
 
@@ -74,7 +74,7 @@ Keep menu information up to date by editing existing dishes or removing items th
 - Delete menu items with a confirmation prompt.
 - Automatically refresh the menu after changes.
 
-![Edit and Delete Feedback](scripts/06-validation.png)
+![Edit and Delete Feedback](screenshots/06-validation.png)
 
 Confirmation and feedback messages help users understand when menu items have been updated or deleted successfully.
 
