@@ -109,35 +109,21 @@ The application includes:
 
 ## Project Structure
 
-```text
-Chefs-Menu-Manager/
-│
-├── assets/
-│
-├── screenshots/
-│   ├── 01-menu-screen.png
-│   ├── 02-add-menu-item.png
-│   ├── 03-validation.png
-│   ├── 04-search-and-filter.png
-│   ├── 05-menu-statistics.png
-│   ├── 06-edit-and-delete.png
-│   └── 06-validation.png
-│
-├── src/
-│   ├── app/
-│   │   ├── _layout.tsx
-│   │   ├── index.tsx
-│   │   └── add-menu.tsx
-│   │
-│   ├── components/
-│   │   └── menu-items.tsx
-│   │
-│   └── MenuContext.tsx
-│
-├── package.json
-├── README.md
-└── ...
-```
+The application is organised into folders and files to separate screens, reusable components, application data and resources.
+
+| Folder / File | Description |
+|---|---|
+| `assets/` | Contains application images and other static resources. |
+| `screenshots/` | Contains screenshots showcasing the application's interface and features. |
+| `src/app/` | Contains the application screens and navigation layout. |
+| `src/app/_layout.tsx` | Defines the application's navigation layout. |
+| `src/app/index.tsx` | Main restaurant menu screen, including menu overview, search and filtering. |
+| `src/app/add-menu.tsx` | Form used to add new menu items and edit existing ones. |
+| `src/components/` | Contains reusable interface components. |
+| `src/components/menu-items.tsx` | Displays individual menu item cards and their actions. |
+| `src/MenuContext.tsx` | Manages and shares menu item data across the application. |
+| `package.json` | Contains project dependencies and configuration. |
+| `README.md` | Provides project information, screenshots and setup instructions.
 
 
 GitHub Repository: [Chef's Menu Manager](https://github.com/MoeketsiNteo/Chefs-Menu-Manager)
