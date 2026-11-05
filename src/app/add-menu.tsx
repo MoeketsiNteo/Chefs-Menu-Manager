@@ -104,6 +104,15 @@ export default function AddMenuScreen() {
     setImage(undefined);
   };
 
+  //Clear validation messages
+  const clearValidationMessages = () => {
+    setDishNameError('');
+    setDescriptionError('');
+    setCourseError('');
+    setPriceError('');
+    setSuccessMessage('');
+  };
+
   //Clear form fields
   const clearForm = () => {
     setDishName('');
@@ -112,48 +121,52 @@ export default function AddMenuScreen() {
     setPrice('');
     setImage(undefined);
 
-    //Clear validation messages
-    setDishNameError('');
-    setDescriptionError('');
-    setCourseError('');
-    setPriceError('');
-    setSuccessMessage('');
+    clearValidationMessages();
+  };
+
+  //Validate required form fields
+  const getFieldError = (value: string, message: string) => {
+    return value.trim() ? '' : message;
   };
 
   //Save menu item
   const saveMenuItem = () => {
-    //Clear previous validation messages
-    setDishNameError('');
-    setDescriptionError('');
-    setCourseError('');
-    setPriceError('');
-    setSuccessMessage('');
+    clearValidationMessages(); //Clear previous validation messages
 
-    let hasError = false;
+  //Validate form fields
+  const nameError = getFieldError(
+    dishName,
+    'Please enter the dish name.'
+  );
 
-    //Validate dish name
-    if (!dishName.trim()) {
-      setDishNameError('Please enter the dish name.');
-      hasError = true;
-    }
+  const descriptionErrorMessage = getFieldError(
+    description,
+    'Please enter the dish description.'
+  );
 
-    //Validate description
-    if (!description.trim()) {
-      setDescriptionError('Please enter the dish description.');
-      hasError = true;
-    }
+  const priceErrorMessage = getFieldError(
+    price,
+    'Please enter the price.'
+  );
 
-    //Validate price
-    if (!price.trim()) {
-      setPriceError('Please enter the price.');
-      hasError = true;
-    }
+  const courseErrorMessage = getFieldError(
+    course,
+    'Please select a course.'
+  );
 
-    //Validate course
-    if (!course) {
-      setCourseError('Please select a course.');
-      hasError = true;
-    }
+  //Display validation messages
+  setDishNameError(nameError);
+  setDescriptionError(descriptionErrorMessage);
+  setPriceError(priceErrorMessage);
+  setCourseError(courseErrorMessage);
+
+  //Check whether any validation errors exist
+  const hasError = Boolean(
+    nameError ||
+    descriptionErrorMessage ||
+    priceErrorMessage ||
+    courseErrorMessage
+  );
 
     //Stop if validation fails
     if (hasError) {
@@ -332,12 +345,6 @@ export default function AddMenuScreen() {
               </TouchableOpacity>
             ))}
           </View>
-
-          {courseError ? (
-            <Text style={styles.errorText}>
-              {courseError}
-            </Text>
-          ) : null}
 
           {courseError ? (
             <Text style={styles.errorText}>
